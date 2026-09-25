@@ -177,7 +177,7 @@ if (typeof window.Swiper !== "function") {
             }
 
             if (options.on && typeof options.on.slideChange === "function") {
-                options.on.slideChange();
+                options.on.slideChange.call(self);
             }
         }
 
@@ -202,7 +202,13 @@ if (typeof window.Swiper !== "function") {
             if (prev) prev.addEventListener("click", function () { self.slidePrev(); });
         }
 
-        update();
+        // شغّل حالة الشريحة الأولى بعد اكتمال إنشاء الكائن،
+        // حتى لا يعتمد callback على متغير swiper قبل إسناده.
+        setTimeout(function () {
+            if (options.on && typeof options.on.slideChange === "function") {
+                options.on.slideChange.call(self);
+            }
+        }, 0);
     };
 }
 
@@ -214,7 +220,9 @@ var swiper = new Swiper(".mySwiper", {
     },
     on: {
         slideChange: function () {
-            var currentSlide = swiper.activeIndex;
+            var currentSlide = (this && typeof this.activeIndex === "number")
+                ? this.activeIndex
+                : (swiper && typeof swiper.activeIndex === "number" ? swiper.activeIndex : 0);
 
             if (currentSlide === 0) {
                 teksSekarang = 1;
