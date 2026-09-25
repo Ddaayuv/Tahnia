@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <title>هدية إلى ليلي 💝</title>
+    <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" name="viewport"/>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" referrerpolicy="no-referrer" rel="stylesheet"/>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body data-page-gender="🇮🇶👧">
+
+    <!-- Preview Banner -->
+    <div class="preview-banner" id="previewBanner">
+        <span class="preview-banner-text">
+            <strong>وضع المعاينة:</strong>
+            هذا رابط معاينة فقط. تواصل مع متجرنا لإنشاء رابط شخصي لحبيبك!
+        </span>
+        <button aria-label="إغلاق" class="preview-banner-close">×</button>
+    </div>
+
+    <!-- Load shared gender system -->
+    <script src="/js/gender-system.js"></script>
+
+    <!-- Audio Element -->
+    <audio id="heartAudio" playsinline preload="auto" webkit-playsinline>
+        <source src="/static/preview.mp3" type="audio/mpeg"/>
+        <source src="/static/preview.mp3" type="audio/mp4"/>
+        <source src="/static/preview.mp3" type="audio/mp3"/>
+    </audio>
+
+    <!-- Overlay -->
+    <div class="overlay">
+        <div class="loading-message">
+            <span data-gender="🇮🇶👧">
+                هلو عمري
+                <br/>
+                جاي نجهزلج هديتج قلبي ثواني انتظري
+            </span>
+            <span data-gender="🇮🇶👦">
+                هلو عمري
+                <br/>
+                جاي نجهزلك هديتك قلبي ثواني انتظر
+            </span>
+            <span data-gender="🇸🇦👧">
+                هلا حبيبتي
+                <br/>
+                بجهز هديتك كم ثانية انتظري
+            </span>
+            <span data-gender="🇸🇦👦">
+                هلا حبيبي
+                <br/>
+                بجهز هديتك كم ثانية انتظر
+            </span>
+            <span data-gender="🇺🇸👧">
+                Hello my love
+                <br/>
+                Preparing your gift, wait a moment
+            </span>
+            <span data-gender="🇺🇸👦">
+                Hello my love
+                <br/>
+                Preparing your gift, wait a moment
+            </span>
+        </div>
+
+        <div class="blocklove" id="playAudioSection">
+            <p id="ket">
+                <span data-gender="🇮🇶👧">اضغطي على الزر لتشغيل الموسيقى 🎵</span>
+                <span data-gender="🇮🇶👦">اضغط على الزر لتشغيل الموسيقى 🎵</span>
+                <span data-gender="🇸🇦👧">اضغطي على الزر لتشغيل الموسيقى 🎵</span>
+                <span data-gender="🇸🇦👦">اضغط على الزر لتشغيل الموسيقى 🎵</span>
+                <span data-gender="🇺🇸👧">Press the button to play music 🎵</span>
+                <span data-gender="🇺🇸👦">Press the button to play music 🎵</span>
+            </p>
+            <button id="playAudioBtn">▶️ تشغيل الموسيقى</button>
+        </div>
+
+        <div class="blocklove" id="loveIn">
+            <!-- المحتوى يُبنى بـ JS -->
+        </div>
+    </div>
+
+    <!-- Background -->
+    <div id="bodyblur">
+        <img id="wallpaper" src="https://cdn.laily.org/theme-assets/v1/objects/83bf7dac7223ed059854aeba2bbf17daa7dab39b19d54a44aaff3f120548795f.jpeg"/>
+        <div id="thisblur"></div>
+    </div>
+
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+            <!-- Slide 0: Hello -->
+            <div class="swiper-slide">
+                <div class="scale0 stiker" id="stikerHello">
+                    <img src="https://cdn.laily.org/theme-assets/v1/objects/0b551cb018ee702121a3329b0ac0448b11b29225769b67e6920f322f48d85390.gif"/>
+                </div>
+                <h1 class="scale0 quicksand" id="teksHello">
+                    هلوو ليلي 🫢
+                    <br/>
+                    <br/>
+                    &gt;&gt;&gt;&gt;
+                </h1>
+                <div class="scale0" id="TombolHello">
+                    <a>
+                        <span data-gender="🇮🇶👧 🇮🇶👦">التالي 👋</span>
+                        <span data-gender="🇸🇦👧 🇸🇦👦">التالي 👋</span>
+                        <span data-gender="🇺🇸👧 🇺🇸👦">Next 👋</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 1: Message intro -->
+            <div class="swiper-slide">
+                <div class="scale0 stiker" id="stiker1">
+                    <img src="https://cdn.laily.org/theme-assets/v1/objects/06e03055dc789c767ed734c10a0633bb54654a99f38d513fe8357242c9c13885.gif"/>
+                </div>
+                <h1 class="scale0 quicksand" id="teks1">
+                    <span data-gender="🇮🇶👧">عنديي رسالة الج 🌚<br/></span>
+                    <span data-gender="🇮🇶👦">عندي رسالة الك 🌚<br/></span>
+                    <span data-gender="🇸🇦👧">عندي رسالة إلك 🌚<br/></span>
+                    <span data-gender="🇸🇦👦">عندي رسالة إلك 🌚<br/></span>
+                    <span data-gender="🇺🇸👧">I have a message for you 🌚<br/></span>
+                    <span data-gender="🇺🇸👦">I have a message for you 🌚<br/></span>
+                </h1>
+                <div class="scale0" id="TombolCustom">
+                    <a id="BtnCustom">
+                        <span data-gender="🇮🇶👧 🇮🇶👦">شنو هي 😒</span>
+                        <span data-gender="🇸🇦👧 🇸🇦👦">شو هي 😒</span>
+                        <span data-gender="🇺🇸👧 🇺🇸👦">What is it 😒</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Slide 2: Message -->
+            <div class="swiper-slide">
+                <div class="scale0 stiker" id="stikerMessage">
+                    <img src="https://cdn.laily.org/theme-assets/v1/objects/0b551cb018ee702121a3329b0ac0448b11b29225769b67e6920f322f48d85390.gif"/>
+                </div>
+                <div class="blocktext" id="messageContainer">
+                    <h1 class="scale0 quicksand" id="teksMessage"></h1>
+                </div>
+                <div class="scale0" id="TombolMessage">
+                    <a>
+                        <span data-gender="🇮🇶👧 🇮🇶👦">التالي</span>
+                        <span data-gender="🇸🇦👧 🇸🇦👦">التالي</span>
+                        <span data-gender="🇺🇸👧 🇺🇸👦">Next</span>
+                    </a>
+                </div>
+                <div id="server-message">
+                    <!-- هنا ستظهر الرسالة التي انت ترسلها الى المتجر عند شراء الرابط -->
+                </div>
+            </div>
+
+            <!-- Slide 3: Do you love me? -->
+            <div class="swiper-slide">
+                <div class="scale0 stiker" id="stiker2">
+                    <img id="stikerDuaDef" src="https://cdn.laily.org/theme-assets/v1/objects/a6270e89d895f88476f6de35f3d77a242374882792e56f01cc027ed23d56cb0a.gif"/>
+                    <img class="sembunyi" id="stikerDua1" src="https://cdn.laily.org/theme-assets/v1/objects/1b7260bc69bd51061765d4962bc6eda7c02e1f91f56ea0d4ff4e5bf24d1b48b2.gif"/>
+                    <img class="sembunyi" id="stikerDua2" src="https://cdn.laily.org/theme-assets/v1/objects/4d0b8bc5402596adbbac0462819bda107793a5479a55a41fdf9aaadce8067ce9.gif"/>
+                    <img class="sembunyi" id="stikerDua3" src="https://cdn.laily.org/theme-assets/v1/objects/34aadc561d0bc4ccc71269617265e25c7cfdcdda1ab2177ea79187ff860231b1.gif"/>
+                </div>
+                <h1 class="scale0 quicksand" id="teks2">
+                    <span data-gender="🇮🇶👧">تحبيني؟ 🙈🌚</span>
+                    <span data-gender="🇮🇶👦">تحبني؟ 🙈🌚</span>
+                    <span data-gender="🇸🇦👧">بتحبيني؟ 🙈🌚</span>
+                    <span data-gender="🇸🇦👦">بتحبني؟ 🙈🌚</span>
+                    <span data-gender="🇺🇸👧">Do you love me? 🙈🌚</span>
+                    <span data-gender="🇺🇸👦">Do you love me? 🙈🌚</span>
+                </h1>
+                <div id="Tombol">
+                    <a id="By">
+                        <span data-gender="🇮🇶👧 🇮🇶👦">اي</span>
+                        <span data-gender="🇸🇦👧 🇸🇦👦">اه</span>
+                        <span data-gender="🇺🇸👧 🇺🇸👦">Yes</span>
+                    </a>
+                    <a id="Bn">
+                        <span data-gender="🇮🇶👧 🇮🇶👦">لااء 🌚🔪</span>
+                        <span data-gender="🇸🇦👧 🇸🇦👦">لأ 🌚🔪</span>
+                        <span data-gender="🇺🇸👧 🇺🇸👦">No 🌚🔪</span>
+                    </a>
+                </div>
+                <div class="sembunyi" id="teksTolakGroup">
+                    <p id="teksTolak">
+                        <span data-gender="🇮🇶👧 🇸🇦👧">هاي ليش 😡🥲</span>
+                        <span data-gender="🇮🇶👦 🇸🇦👦">هاي ليش 😡🥲</span>
+                        <span data-gender="🇺🇸👧 🇺🇸👦">Hey why 😡🥲</span>
+                    </p>
+                    <p id="teksTolak2">
+                        <span data-gender="🇮🇶👧">معقولة ما تحبيني؟ 🥹</span>
+                        <span data-gender="🇮🇶👦">معقولة ما تحبني؟ 🥹</span>
+                        <span data-gender="🇸🇦👧">معقولة ما بتحبيني؟ 🥹</span>
+                        <span data-gender="🇸🇦👦">معقولة ما بتحبني؟ 🥹</span>
+                        <span data-gender="🇺🇸👧">Really you don't love me? 🥹</span>
+                        <span data-gender="🇺🇸👦">Really you don't love me? 🥹</span>
+                    </p>
+                    <p id="teksTolak3">
+                        <span data-gender="🇮🇶👧">ادري بيج تحبيني 😁💞</span>
+                        <span data-gender="🇮🇶👦">ادري بيك تحبني 😁💞</span>
+                        <span data-gender="🇸🇦👧">بعرف فيكي بتحبيني 😁💞</span>
+                        <span data-gender="🇸🇦👦">بعرف فيك بتحبني 😁💞</span>
+                        <span data-gender="🇺🇸👧">I know you love me 😁💞</span>
+                        <span data-gender="🇺🇸👦">I know you love me 😁💞</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 4: Birthday sections -->
+            <div class="swiper-slide">
+                <div class="birthday-section" id="bdaySection1">
+                    <div class="scale0 stiker" id="stikerBday1">
+                        <img src="https://cdn.laily.org/theme-assets/v1/objects/f6b0483fdc1beb0db476d630164156b7019c1749294f3516a39d5dec6b0d1458.gif"/>
+                    </div>
+                    <h1 class="scale0 quicksand" id="teksBday1">وانا احبج اكثر 🥹</h1>
+                    <div class="scale0" id="TombolBday1">
+                        <a>حبيبي 🥹❤️</a>
+                    </div>
+                </div>
+                <div class="birthday-section sembunyi" id="bdaySection2">
+                    <div class="scale0 stiker" id="stikerBday2">
+                        <img src="https://cdn.laily.org/theme-assets/v1/objects/569582ef625037e9662f35d6b8b8c4472387b3b07d3e1d5753f99805774cf471.gif"/>
+                    </div>
+                    <h1 class="scale0 quicksand" id="teksBday2">بس اني اكثررر 🥹</h1>
+                    <div class="scale0" id="TombolBday2">
+                        <a>ماا انيي ❤️</a>
+                    </div>
+                </div>
+                <div class="birthday-section sembunyi" id="bdaySection3">
+                    <div class="scale0 stiker" id="stikerBday3">
+                        <img src="https://cdn.laily.org/theme-assets/v1/objects/abe54355a43bc743eaa5c7b003660be0f1cc960ee35c406f73331138d6ef7ae8.gif"/>
+                    </div>
+                    <h1 class="scale0 quicksand" id="teksBday3">بكيفييي 🤭</h1>
+                    <div class="scale0" id="TombolBday3">
+                        <a>اها! 😡</a>
+                    </div>
+                </div>
+                <div class="birthday-section sembunyi" id="bdaySection4">
+                    <div class="scale0 stiker" id="stikerBday4">
+                        <img src="https://cdn.laily.org/theme-assets/v1/objects/34aadc561d0bc4ccc71269617265e25c7cfdcdda1ab2177ea79187ff860231b1.gif"/>
+                    </div>
+                    <h1 class="scale0 quicksand" id="teksBday4">أحبببببج موتتتت 🥹</h1>
+                    <div class="scale0" id="TombolBday4">
+                        <a>اني هم أحبك 🥹</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Final love -->
+            <div class="swiper-slide">
+                <div class="scale0 stiker" id="stiker3">
+                    <img id="stikerAkhir1" src="https://cdn.laily.org/theme-assets/v1/objects/f4ed72439d02ba1dbf6c6c77a846f1fec8fc4e3f09e965feb43c7b3d48b89343.gif"/>
+                    <img class="sembunyi" id="stikerAkhir2" src="https://cdn.laily.org/theme-assets/v1/objects/eb6e0e9ccb8a3e473ebef6e2f66894f805559a200a3ae71a6e1bf4dcbdbd7ff2.gif"/>
+                    <img class="sembunyi" id="stikerAkhir3" src="https://cdn.laily.org/theme-assets/v1/objects/79c558dcef6e34fc1264ddd7f941fa01ae7a16c167f3b4f887ab2108bf0e8d06.gif"/>
+                </div>
+                <div class="blocktext" id="scroll-container">
+                    <h1 class="scale0 quicksand" id="teks3">
+                        <span id="subteks2a">
+                            <span data-gender="🇮🇶👧"><b>أحبججججججججججج</b><br/>وادري انتِ اكثر !! 😝</span>
+                            <span data-gender="🇮🇶👦"><b>أحبككككككك</b><br/>وادري انت اكثر !! 😝</span>
+                            <span data-gender="🇸🇦👧"><b>بحبكككككككك</b><br/>وبعرف انتي اكثر !! 😝</span>
+                            <span data-gender="🇸🇦👦"><b>بحبكككككك</b><br/>وبعرف انت اكثر !! 😝</span>
+                            <span data-gender="🇺🇸👧"><b>I love you</b><br/>and I know you love me more !! 😝</span>
+                            <span data-gender="🇺🇸👦"><b>I love you</b><br/>and I know you love me more !! 😝</span>
+                        </span>
+                        <span id="subteks2b">
+                            <span data-gender="🇮🇶👧"><b>بس لو تدرين شگد أحبج  🥹💐💐</b></span>
+                            <span data-gender="🇮🇶👦"><b>بس لو تدري شگد أحبك  🥹💐💐</b></span>
+                            <span data-gender="🇸🇦👧"><b>بس لو بتعرفي قديش بحبك  🥹💐💐</b></span>
+                            <span data-gender="🇸🇦👦"><b>بس لو بتعرف قديش بحبك  🥹💐💐</b></span>
+                            <span data-gender="🇺🇸👧"><b>But if you only knew how much I love you  🥹💐💐</b></span>
+                            <span data-gender="🇺🇸👦"><b>But if you only knew how much I love you  🥹💐💐</b></span>
+                        </span>
+                    </h1>
+                    <h1 class="sembunyi" id="teksTerakhir">
+                        <span data-gender="🇮🇶👧">اني احبجججج<b>حبببببب حبببببب<br/>حبببببب</b>گد الكون<br/>احبجججج!!!<br/>🥹🥹💞💞🫶🫶🫶</span>
+                        <span data-gender="🇮🇶👦">اني احبككك<b>حبببببب حبببببب<br/>حبببببب</b>گد الكون<br/>احبككك!!!<br/>🥹🥹💞💞🫶🫶🫶</span>
+                        <span data-gender="🇸🇦👧">انا بحبكككك<b>حبببب حبببب<br/>حبببب</b>قد الكون<br/>بحبكككك!!!<br/>🥹🥹💞💞🫶🫶🫶</span>
+                        <span data-gender="🇸🇦👦">انا بحبككك<b>حبببب حبببب<br/>حبببب</b>قد الكون<br/>بحبككك!!!<br/>🥹🥹💞💞🫶🫶🫶</span>
+                        <span data-gender="🇺🇸👧">I love you<b>so so so<br/>so much</b>as big as the universe<br/>I love you!!!<br/>🥹🥹💞💞🫶🫶🫶</span>
+                        <span data-gender="🇺🇸👦">I love you<b>so so so<br/>so much</b>as big as the universe<br/>I love you!!!<br/>🥹🥹💞💞🫶🫶🫶</span>
+                    </h1>
+                    <h1 class="sembunyi" id="teksTambahan">
+                        <span id="teksLove">
+                            <span data-gender="🇮🇶👧">احبجججج</span>
+                            <span data-gender="🇮🇶👦">احبككك</span>
+                            <span data-gender="🇸🇦👧">بحبكككك</span>
+                            <span data-gender="🇸🇦👦">بحبككك</span>
+                            <span data-gender="🇺🇸👧">I love you</span>
+                            <span data-gender="🇺🇸👦">I love you</span>
+                        </span>
+                    </h1>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Container للقلوب الطائرة -->
+    <div id="container">
+        <div class="wrapper">
+            <div class="box">
+                <div></div><div></div><div></div><div></div><div></div>
+                <div></div><div></div><div></div><div></div><div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Trigger + Popup -->
+    <button id="warningTrigger">
+        <i class="fas fa-exclamation"></i>
+    </button>
+
+    <div id="popupOverlay">
+        <div id="popupCard">
+            <button id="closePopup">
+                <i class="fas fa-times"></i>
+            </button>
+            <p>
+                <span data-gender="🇮🇶👧">تم عمل هذا الموقع كـ هدية الج من حبيب قلبج ❤️</span>
+                <span data-gender="🇮🇶👦">تم عمل هذا الموقع كـ هدية الك من حبيب قلبك ❤️</span>
+                <span data-gender="🇸🇦👧">تم عمل هذا الموقع كـ هدية إلك من حبيب قلبك ❤️</span>
+                <span data-gender="🇸🇦👦">تم عمل هذا الموقع كـ هدية إلك من حبيب قلبك ❤️</span>
+                <span data-gender="🇺🇸👧">This website was made as a gift for you from your beloved ❤️</span>
+                <span data-gender="🇺🇸👦">This website was made as a gift for you from your beloved ❤️</span>
+            </p>
+            <p>
+                <span data-gender="🇮🇶👧">اكتشفي الثيمات المتوفرة وتواصلي مع الشركة القائمة على مواقع الهدايا اذا رغبتي بشراء موقع للي تحبين.</span>
+                <span data-gender="🇮🇶👦">اكتشف الثيمات المتوفرة وتواصل مع الشركة القائمة على مواقع الهدايا اذا رغبت بشراء موقع للي تحب.</span>
+                <span data-gender="🇸🇦👧">اكتشفي الثيمات المتوفرة وتواصلي مع الشركة القائمة على مواقع الهدايا إذا رغبتي بشراء موقع للي بتحبي.</span>
+                <span data-gender="🇸🇦👦">اكتشف الثيمات المتوفرة وتواصل مع الشركة القائمة على مواقع الهدايا إذا رغبت بشراء موقع للي بتحب.</span>
+                <span data-gender="🇺🇸👧">Discover available themes and contact the company behind gift websites if you wish to buy a website for your loved one.</span>
+                <span data-gender="🇺🇸👦">Discover available themes and contact the company behind gift websites if you wish to buy a website for your loved one.</span>
+            </p>
+            <div>
+                <a href="https://laily.org" target="_blank">
+                    <span data-gender="🇮🇶👧 🇮🇶👦">شوف الثيمات المتوفرة</span>
+                    <span data-gender="🇸🇦👧 🇸🇦👦">شوف الثيمات المتوفرة</span>
+                    <span data-gender="🇺🇸👧 🇺🇸👦">View Available Themes</span>
+                </a>
+            </div>
+            <small>
+                <span data-gender="🇮🇶👧 🇮🇶👦">ملاحظة: احنا مو مسؤولين عن الاستخدام الخاطئ لهذه المواقع</span>
+                <span data-gender="🇸🇦👧 🇸🇦👦">ملاحظة: نحن غير مسؤولين عن الاستخدام الخاطئ لهذه المواقع</span>
+                <span data-gender="🇺🇸👧 🇺🇸👦">Note: We are not responsible for misuse of these websites</span>
+            </small>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script crossorigin="anonymous" data-cf-beacon='{"version":"2024.11.0","token":"37da6166568142f7aec8b888bdeb3721","r":1,"spa":2}' integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" type="module"></script>
+    <script src="script.js"></script>
+
+
+<!-- ====== Music Widget (integrated) ====== -->
+<section id="musicWidgetIntegrated" aria-label="music widget" class="music-widget-integrated">
+  <div class="music-inner">
+    <h4>تشغيل موسيقى مخصصة</h4>
+    <div class="music-row">
+      <div class="music-col">
+        <label>رابط الموسيقى (mp3 أو YouTube)</label>
+        <input id="musicUrl" type="text" placeholder="https://..."/>
+      </div>
+      <div class="music-col">
+        <label>اسمك (اختياري)</label>
+        <input id="musicName" type="text" placeholder="اسمك"/>
+      </div>
+    </div>
+    <label>رسالتك (اختياري)</label>
+    <textarea id="musicMessage" placeholder="اكتب رسالة قصيرة"></textarea>
+    <div class="controls">
+      <button class="btn-play" id="musicPlayBtn" type="button">تشغيل الآن</button>
+      <button class="btn-hide" id="musicClearBtn" type="button">مسح الحقول</button>
+      <button class="btn-toggle" id="musicCollapseBtn" type="button" aria-expanded="true">طي</button>
+    </div>
+    <div id="musicPlayerContainer"></div>
+    <div id="musicSenderInline" class="music-sender-inline" aria-live="polite"></div>
+    <div id="musicWidgetHint" class="small-note">ملاحظة: إذا منع المتصفح التشغيل التلقائي، اضغط زر التشغيل في المشغل.</div>
+  </div>
+</section>
+<script src="music-widget.js"></script>
+<script>
+document.getElementById("musicPlayBtn").addEventListener("click", function(){ window.lailyMusicWidget.play(); });
+document.getElementById("musicClearBtn").addEventListener("click", function(){
+  document.getElementById("musicUrl").value="";
+  document.getElementById("musicName").value="";
+  document.getElementById("musicMessage").value="";
+  var container=document.getElementById("musicPlayerContainer"); if(container) container.innerHTML="";
+  document.getElementById("musicSenderInline").innerHTML = "";
+});
+document.getElementById("musicCollapseBtn").addEventListener("click", function(){
+  var sec = document.getElementById("musicWidgetIntegrated");
+  var expanded = this.getAttribute("aria-expanded") === "true";
+  if(expanded){
+    sec.classList.add("collapsed");
+    this.setAttribute("aria-expanded","false");
+    this.innerText = "وسع";
+  } else {
+    sec.classList.remove("collapsed");
+    this.setAttribute("aria-expanded","true");
+    this.innerText = "طي";
+  }
+});
+</script>
+<!-- ====== End Music Widget (integrated) ====== -->
+
+
+</body>
+</html>
