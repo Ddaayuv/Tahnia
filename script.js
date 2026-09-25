@@ -134,6 +134,78 @@ var body = document.querySelector("body");
 /* ============================================================
    4) Swiper
    ============================================================ */
+/* ============================================================
+   4A) Fallback آمن لـ Swiper
+   إذا تعذر تحميل مكتبة Swiper من CDN لا يتوقف باقي الموقع.
+   ============================================================ */
+if (typeof window.Swiper !== "function") {
+    window.Swiper = function (selector, options) {
+        options = options || {};
+        var root = document.querySelector(selector);
+        var wrapper = root ? root.querySelector(".swiper-wrapper") : null;
+        var slides = wrapper ? Array.from(wrapper.children) : [];
+        var self = this;
+
+        this.el = root;
+        this.wrapper = wrapper;
+        this.slides = slides;
+        this.activeIndex = 0;
+
+        function update() {
+            if (!wrapper || !slides.length) return;
+
+            // نفس فكرة حركة Swiper الأساسية.
+            wrapper.style.display = "flex";
+            wrapper.style.transition = "transform 0.45s ease";
+            wrapper.style.transform = "translate3d(" + (-self.activeIndex * 100) + "%,0,0)";
+
+            slides.forEach(function (slide, index) {
+                slide.classList.toggle("swiper-slide-active", index === self.activeIndex);
+            });
+
+            if (options.pagination && options.pagination.el) {
+                var pagination = document.querySelector(options.pagination.el);
+                if (pagination) {
+                    pagination.innerHTML = "";
+                    slides.forEach(function (_, index) {
+                        var bullet = document.createElement("span");
+                        bullet.className = "swiper-pagination-bullet" +
+                            (index === self.activeIndex ? " swiper-pagination-bullet-active" : "");
+                        pagination.appendChild(bullet);
+                    });
+                }
+            }
+
+            if (options.on && typeof options.on.slideChange === "function") {
+                options.on.slideChange();
+            }
+        }
+
+        this.slideTo = function (index) {
+            var max = Math.max(0, slides.length - 1);
+            self.activeIndex = Math.min(Math.max(Number(index) || 0, 0), max);
+            update();
+        };
+
+        this.slideNext = function () {
+            self.slideTo(self.activeIndex + 1);
+        };
+
+        this.slidePrev = function () {
+            self.slideTo(self.activeIndex - 1);
+        };
+
+        if (options.navigation) {
+            var next = document.querySelector(options.navigation.nextEl);
+            var prev = document.querySelector(options.navigation.prevEl);
+            if (next) next.addEventListener("click", function () { self.slideNext(); });
+            if (prev) prev.addEventListener("click", function () { self.slidePrev(); });
+        }
+
+        update();
+    };
+}
+
 var swiper = new Swiper(".mySwiper", {
     allowTouchMove: false,
     pagination: {
