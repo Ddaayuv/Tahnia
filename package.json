@@ -1,7 +1,0 @@
-{
-  "name": "greeting-qr-short-link",
-  "private": true,
-  "dependencies": {
-    "@vercel/blob": "latest"
-  }
-}
