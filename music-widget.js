@@ -35,7 +35,11 @@
     } catch(e){ /* ignore */ }
 
     // display name/message in small badge on page (non-destructive)
-    var inline = document.getElementById('musicSenderInline'); if(!inline){ inline = document.createElement('div'); inline.id='musicSenderInline'; }
+    var inline = document.getElementById('musicSenderInline');
+    if(!inline){
+      inline = document.createElement('div');
+      inline.id='musicSenderInline';
+      inline.className='music-sender-inline';
     }
     inline.innerHTML = "<strong>"+(name||"زائر")+"</strong><div style='font-size:13px;opacity:0.95;margin-top:6px'>"+(message||"رسالة قصيرة")+"</div>";
     // ensure it's visible inside the widget container
