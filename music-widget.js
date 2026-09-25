@@ -29,9 +29,9 @@
     }
     // save to localStorage (optional)
     try {
-      localStorage.setItem("laily.music.url",url);
-      localStorage.setItem("laily.music.name",name);
-      localStorage.setItem("laily.music.msg",message);
+      localStorage.setItem("gift.music.url",url);
+      localStorage.setItem("gift.music.name",name);
+      localStorage.setItem("gift.music.msg",message);
     } catch(e){ /* ignore */ }
 
     // display name/message in small badge on page (non-destructive)
@@ -87,7 +87,7 @@
     }
   }
 
-  function onToggleHidePreview(e){
+  function onToggleHide(e){
     var hide = e.target.checked;
     // hide elements with class names starting with 'preview-' (safe and reversible)
     var all = document.querySelectorAll("[class]");
@@ -103,9 +103,9 @@
   // Restore saved values on load
   document.addEventListener("DOMContentLoaded",function(){
     try {
-      var savedUrl = localStorage.getItem("laily.music.url") || "";
-      var savedName = localStorage.getItem("laily.music.name") || "";
-      var savedMsg = localStorage.getItem("laily.music.msg") || "";
+      var savedUrl = localStorage.getItem("gift.music.url") || "";
+      var savedName = localStorage.getItem("gift.music.name") || "";
+      var savedMsg = localStorage.getItem("gift.music.msg") || "";
       if(savedUrl) uq("musicUrl").value = savedUrl;
       if(savedName) uq("musicName").value = savedName;
       if(savedMsg) uq("musicMessage").value = savedMsg;
@@ -114,6 +114,6 @@
   });
 
   // expose function for console if needed
-  window.lailyMusicWidget = {play:onPlayRequested};
+  window.giftMusicWidget = {play:onPlayRequested};
 
 })();
