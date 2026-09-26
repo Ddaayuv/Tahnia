@@ -1052,12 +1052,19 @@ if (giftGenerateBtn) {
         giftGenerateBtn.disabled = true;
         giftGenerateBtn.textContent = "⏳ يتم إنشاء الرابط القصير...";
 
+        var controller = typeof AbortController !== "undefined" ? new AbortController() : null;
+        var requestTimeout = setTimeout(function () {
+            if (controller) controller.abort();
+        }, 15000);
+
         fetch("/api/create", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
+            cache: "no-store",
+            signal: controller ? controller.signal : undefined,
             body: JSON.stringify({
                 n: name,
                 m: music,
@@ -1065,6 +1072,7 @@ if (giftGenerateBtn) {
             })
         })
             .then(function (res) {
+                clearTimeout(requestTimeout);
                 return res.json().catch(function () { return {}; }).then(function (data) {
                     if (!res.ok) {
                         throw new Error(data && data.error ? data.error : "تعذر إنشاء الرابط");
@@ -1079,7 +1087,14 @@ if (giftGenerateBtn) {
                 showGeneratedLink(data.url);
             })
             .catch(function (err) {
+                clearTimeout(requestTimeout);
                 console.error("Short link error:", err);
+
+                // لا نترك الزر عالقاً عند تعطل API/Blob؛ ننتقل مباشرة للاحتياط المضغوط.
+                var isTimeout = err && (err.name === "AbortError" || err.name === "TimeoutError");
+                if (isTimeout) {
+                    console.warn("إنشاء الرابط القصير تجاوز 15 ثانية، سيتم استخدام الرابط الاحتياطي.");
+                }
 
                 // احتياطي عند عدم إعداد الـBackend.
                 var fallbackUrl = new URL(window.location.href);
@@ -1099,7 +1114,11 @@ if (giftGenerateBtn) {
 
                 fallbackUrl.search = params.toString();
                 showGeneratedLink(fallbackUrl.toString());
-                alert("تعذر إنشاء الرابط القصير. تأكد من ربط Vercel Blob بالمشروع.");
+                alert(
+                    isTimeout
+                        ? "الخادم تأخر في إنشاء الرابط القصير، لذلك تم إنشاء رابط احتياطي يعمل مباشرة."
+                        : "تعذر إنشاء الرابط القصير، لذلك تم إنشاء رابط احتياطي يعمل مباشرة."
+                );
             });
     };
 }
