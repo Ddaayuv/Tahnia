@@ -26,10 +26,12 @@ module.exports = async function handler(req, res) {
 
     const { put } = await import("@vercel/blob");
 
-    for (let attempt = 0; attempt < 3; attempt++) {
+    // محاولة واحدة واضحة أفضل من إعادة المحاولة عدة مرات وانتظار المستخدم طويلاً.
+    for (let attempt = 0; attempt < 1; attempt++) {
       const id = makeId();
 
       try {
+        // منع بقاء الطلب معلّقاً بلا نهاية إذا كانت خدمة Blob أو الاتصال بها متعثراً.
         await put(
           "gifts/" + id + ".json",
           JSON.stringify({
@@ -43,14 +45,21 @@ module.exports = async function handler(req, res) {
             access: "public",
             addRandomSuffix: false,
             contentType: "application/json",
-            cacheControlMaxAge: 31536000
+            cacheControlMaxAge: 31536000,
+            abortSignal: AbortSignal.timeout(12000)
           }
         );
 
         return res.status(200).json({
           ok: true,
           id,
-          url: new URL(req.url).origin + "/g/" + id
+          url: (function () {
+            const proto =
+              String(req.headers["x-forwarded-proto"] || "").split(",")[0].trim() ||
+              (req.socket && req.socket.encrypted ? "https" : "http");
+            const host = String(req.headers.host || "").trim();
+            return host ? (proto + "://" + host) : "";
+          })() + "/g/" + id
         });
       } catch (error) {
         if (attempt === 2) throw error;
