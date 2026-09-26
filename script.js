@@ -138,10 +138,19 @@ var body = document.querySelector("body");
    ============================================================ */
 function getGiftParamsFromURL() {
     try {
+        // روابط الهدية القصيرة الجديدة: /g/XXXXXXXX
+        // البيانات تُحقن من /api/gift داخل window.__TAHNIA_GIFT__
+        if (window.__TAHNIA_GIFT__ && typeof window.__TAHNIA_GIFT__ === "object") {
+            return {
+                name: String(window.__TAHNIA_GIFT__.n || "").trim(),
+                music: String(window.__TAHNIA_GIFT__.m || "").trim(),
+                msg: String(window.__TAHNIA_GIFT__.g || "").trim()
+            };
+        }
+
         var params = new URLSearchParams(window.location.search);
 
-        // الصيغة الجديدة المضغوطة: باراميتر واحد فقط "d" يقلل طول الرابط كثيراً
-        // (مهم خصوصاً مع النصوص العربية الطويلة، لأن كل حرف عربي يتحول لعدة رموز %XX بالرابط العادي)
+        // توافق مع الروابط المضغوطة القديمة (?d=...)
         var compressed = params.get("d");
         if (compressed && window.LZString) {
             try {
@@ -159,7 +168,7 @@ function getGiftParamsFromURL() {
             }
         }
 
-        // توافق مع الروابط القديمة (name / music / msg مباشرة)
+        // توافق مع الروابط الأقدم (name / music / msg مباشرة)
         return {
             name: (params.get("name") || "").trim(),
             music: (params.get("music") || "").trim(),
@@ -1001,8 +1010,25 @@ if (playBtn) {
    15) إنشاء رابط الهدية القابل للمشاركة (وضع الإنشاء فقط)
    ============================================================ */
 var giftGenerateBtn = document.getElementById("giftGenerateBtn");
+
 if (giftGenerateBtn) {
     var giftGenerateBtnDefaultText = giftGenerateBtn.textContent;
+
+    function showGeneratedLink(finalLink) {
+        var output = document.getElementById("giftLinkOutput");
+        var result = document.getElementById("giftLinkResult");
+
+        if (output) output.value = finalLink;
+        if (result) {
+            result.style.display = "flex";
+            setTimeout(function () {
+                result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }, 50);
+        }
+
+        giftGenerateBtn.disabled = false;
+        giftGenerateBtn.textContent = giftGenerateBtnDefaultText;
+    }
 
     giftGenerateBtn.onclick = function () {
         var nameInput = document.getElementById("giftRecipientName");
@@ -1018,73 +1044,66 @@ if (giftGenerateBtn) {
             return;
         }
 
-        var url = new URL(window.location.href);
-        var params = new URLSearchParams();
-
-        // نضغط البيانات بمفتاح واحد "d" بدل 3 باراميترات مفتوحة، يقلل طول الرابط كثيراً
-        // (خصوصاً مع النصوص العربية اللي تتحول بالرابط العادي لعشرات الرموز %XX)
-        if (window.LZString) {
-            var payload = {};
-            if (name) payload.n = name;
-            if (music) payload.m = music;
-            if (msg) payload.g = msg;
-            var compressed = window.LZString.compressToEncodedURIComponent(JSON.stringify(payload));
-            params.set("d", compressed);
-        } else {
-            // خطة بديلة إذا تعذر تحميل مكتبة الضغط من الـ CDN لأي سبب
-            if (name) params.set("name", name);
-            if (music) params.set("music", music);
-            if (msg) params.set("msg", msg);
+        if (name.length > 120 || music.length > 2000 || msg.length > 5000) {
+            alert("أحد الحقول أطول من الحد المسموح.");
+            return;
         }
 
-        url.search = params.toString();
-        var fullLink = url.toString();
-
-        var output = document.getElementById("giftLinkOutput");
-        var result = document.getElementById("giftLinkResult");
-
-        function showLink(finalLink) {
-            if (output) output.value = finalLink;
-            if (result) {
-                result.style.display = "flex";
-                // نتأكد إن صندوق الرابط يظهر للمستخدم مباشرة حتى لو البطاقة قابلة للتمرير
-                setTimeout(function () {
-                    result.scrollIntoView({ behavior: "smooth", block: "nearest" });
-                }, 50);
-            }
-            giftGenerateBtn.disabled = false;
-            giftGenerateBtn.textContent = giftGenerateBtnDefaultText;
-        }
-
-        // نعرض الرابط المضغوط فوراً (يشتغل 100% بدون إنترنت خارجي)
-        // وبنفس الوقت نحاول نقصره أكثر عن طريق خدمة اختصار مجانية؛ إذا نجحت نستبدله
-        showLink(fullLink);
         giftGenerateBtn.disabled = true;
-        giftGenerateBtn.textContent = "⏳ يتم تقصير الرابط...";
+        giftGenerateBtn.textContent = "⏳ يتم إنشاء الرابط القصير...";
 
-        fetch("https://cleanuri.com/api/v1/shorten", {
+        fetch("/api/create", {
             method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: "url=" + encodeURIComponent(fullLink)
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                n: name,
+                m: music,
+                g: msg
+            })
         })
-            .then(function (res) { return res.ok ? res.json() : null; })
+            .then(function (res) {
+                return res.json().catch(function () { return {}; }).then(function (data) {
+                    if (!res.ok) {
+                        throw new Error(data && data.error ? data.error : "تعذر إنشاء الرابط");
+                    }
+                    return data;
+                });
+            })
             .then(function (data) {
-                if (data && data.result_url) {
-                    showLink(data.result_url);
-                } else {
-                    showLink(fullLink);
+                if (!data || !data.url) {
+                    throw new Error("الخادم لم يُرجع رابطاً صالحاً");
                 }
+                showGeneratedLink(data.url);
             })
             .catch(function (err) {
-                console.warn("تعذر تقصير الرابط، سيتم استخدام الرابط المضغوط:", err);
-                showLink(fullLink);
+                console.error("Short link error:", err);
+
+                // احتياطي عند عدم إعداد الـBackend.
+                var fallbackUrl = new URL(window.location.href);
+                var params = new URLSearchParams();
+
+                if (window.LZString) {
+                    var payload = {};
+                    if (name) payload.n = name;
+                    if (music) payload.m = music;
+                    if (msg) payload.g = msg;
+                    params.set("d", window.LZString.compressToEncodedURIComponent(JSON.stringify(payload)));
+                } else {
+                    if (name) params.set("name", name);
+                    if (music) params.set("music", music);
+                    if (msg) params.set("msg", msg);
+                }
+
+                fallbackUrl.search = params.toString();
+                showGeneratedLink(fallbackUrl.toString());
+                alert("تعذر إنشاء الرابط القصير. تأكد من ربط Vercel Blob بالمشروع.");
             });
     };
 }
 
-/* ============================================================
-   16) زر "سوّي وحدة لأحد تحبه" - يرجع لصفحة البداية النظيفة
-   ============================================================ */
 var giftRestartBtn = document.getElementById("giftRestartBtn");
 if (giftRestartBtn) {
     giftRestartBtn.onclick = function () {
