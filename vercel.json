@@ -1,9 +1,10 @@
 {
-  "cleanUrls": true,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
       "source": "/g/:id",
       "destination": "/api/gift?id=:id"
     }
-  ]
+  ],
+  "trailingSlash": false
 }
