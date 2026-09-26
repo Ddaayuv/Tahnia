@@ -1,3 +1,9 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/g/:id",
+      "destination": "/api/gift?id=:id"
+    }
+  ]
 }
